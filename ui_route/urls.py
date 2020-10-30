@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'^nssi_topology/$', nssi_topology),
     url(r'^NSS_Instance/$', NSS_Instance),
     url(r'^plugin/$', plugin),
+    url(r'^VNF_Template/$', VNF_Template),
+    url(r'^NSD_Template/$', NSD_Template),
+    url(r'^NRM_Template/$', NRM_Template),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

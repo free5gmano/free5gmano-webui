@@ -30,23 +30,58 @@ def hello_world(request):
 def dashboard(request):
     return render(request, 'dashboard.html',{
     	'dashboard_active': str('active'),
+    	'generic_template_link_status': str('nav-link collapsed'),
+    	'generic_template_expanded': str('false'),
     })
 
 
 def nssi_topology(request):
     return render(request, 'topology.html',{
     	'id': str(request.GET['id']),
+    	'generic_template_link_status': str('nav-link collapsed'),
     	'nssi_topology_active': str('active'),
-    })
+     	'generic_template_expanded': str('false'),
+   })
 
 
 def NSS_Instance(request):
     return render(request, 'nss_instance.html',{
     	'NSS_Instance_active': str('active'),
-    })
+    	'generic_template_link_status': str('nav-link collapsed'),
+     	'generic_template_expanded': str('false'),
+   })
 
 
 def plugin(request):
     return render(request, 'plugin.html',{
+    	'generic_template_link_status': str('nav-link collapsed'),
     	'plugin_active': str('active'),
+    	'generic_template_expanded': str('false'),
+    })
+
+
+def VNF_Template(request):
+    return render(request, 'vnf_template.html',{
+    	'vnf_template_active': str('active'),
+    	'generic_template_link_status': str('nav-link'),
+    	'generic_template_expanded': str('true'),
+    	'generic_template_show': str('show'),
+    })
+
+
+def NSD_Template(request):
+    return render(request, 'nsd_template.html',{
+    	'nsd_template_active': str('active'),
+    	'generic_template_link_status': str('nav-link'),
+    	'generic_template_expanded': str('true'),
+    	'generic_template_show': str('show'),
+    })
+
+
+def NRM_Template(request):
+    return render(request, 'nrm_template.html',{
+    	'nrm_template_active': str('active'),
+    	'generic_template_link_status': str('nav-link'),
+    	'generic_template_expanded': str('true'),
+    	'generic_template_show': str('show'),
     })
