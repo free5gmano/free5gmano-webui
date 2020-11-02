@@ -8,7 +8,7 @@ function vnf_template_list(){
     for (var i =0; i< response.length; i++) {
       // console.log(response[i].templateType)
       if (response[i].templateType == "VNF" && response[i].operationStatus == "UPLOAD") {
-        // console.log(response[i])
+        // console.log(response[i].content)
         document.getElementById("vnf_table").innerHTML += '\
           <tr>\
             <td>\
@@ -27,12 +27,16 @@ function vnf_template_list(){
             <td align="center"><a href="#" onclick="delete_template(\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         for (var j=0; j<response[i].content.length; j++){
-          // console.log(response[i].content[j]);
+          strdata = response[i].content[j].topology_template;
+          strdata_handle = strdata.replace(/'/g, '"').replace(/:[ ]*False/, ":false").replace(/:[ ]*True/, ":true");
+          result = JSON.parse(strdata_handle);
+          vnf_descriptor_id = result.node_templates.VNF1.properties.descriptor_id;
+          // console.log(d.node_templates.VNF1.properties.descriptor_id);
           document.getElementById(response[i].templateId).innerHTML += '\
-            <li>'+response[i].content[j].vnf_descriptor_id+'</li>'
+            <li>'+vnf_descriptor_id+'</li>'
         }
       }
-      else {
+      else if (response[i].templateType == "VNF"){
         document.getElementById("vnf_table").innerHTML += '\
           <tr>\
             <td>\

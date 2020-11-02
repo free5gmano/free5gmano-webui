@@ -1,9 +1,9 @@
 {% extends 'bar.html' %}
-{% block title %}VNF Template{% endblock%}
+{% block title %}NSD Template{% endblock%}
 {% block js %}
 <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/static/css/tree.css">
-<script src="/static/js/nm_js/vnf_template.js"></script>
+<script src="/static/js/nm_js/nsd_template.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -11,40 +11,41 @@
 <div class="container-fluid">
 <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">VNF Template</h1>
-            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#create_vnf_template"> Create VNF Template</button>
+            <h1 class="h3 mb-0 text-gray-800">NSD Template</h1>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#create_nsd_template"> Create NSD Template</button>
           </div>
 
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">VNF Template List</h6>
+              <h6 class="m-0 font-weight-bold text-primary">NSD Template List</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Id List</th>
+                      <th>Id</th>
                       <th>Type</th>
                       <th>NFVO</th>
-                      <th>VNF Status</th>
+                      <th>NSD Status</th>
+                      <th>VNF List</th>
                       <th>Update Template</th>
                       <th>Template Download</th>
                       <th>Delete Template</th>
                     </tr>
                   </thead>
-                  <tbody id="vnf_table"></tbody>
+                  <tbody id="nsd_table"></tbody>
                 </table>
               </div>
             </div>
           </div>
 
-  <!-- create_vnf_template-->
-  <div class="modal fade" id="create_vnf_template" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- create_nsd_template-->
+  <div class="modal fade" id="create_nsd_template" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create new VNF Template</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Create new NSD Template</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
@@ -64,6 +65,11 @@
   <div class="modal fade" id="update_template_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   </div>
 
+  <!-- vnf_list_Modal-->
+  <div id="vnf_list_Modal">
+    <div class="modal fade" id="vnf_list_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+  </div>
+
 </div>
 
 {% endblock %}
@@ -74,6 +80,6 @@
 <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- <script src="/static/js/nm_js/tree.js"></script> -->
 <script type="text/javascript">
-vnf_template_list();
+nsd_template_list();
 </script>
 {% endblock %}
