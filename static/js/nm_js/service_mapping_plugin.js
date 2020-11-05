@@ -3,7 +3,7 @@ const url = 'http://10.0.0.15:8080/plugin/management/';
 
 function service_mapping_plugin_list(){
   axios.get(url).then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
     var response = response.data;
     for (var i = 0; i < response.length; i++) {
       document.getElementById("plugintable").innerHTML += '\
@@ -24,7 +24,6 @@ function service_mapping_plugin_list(){
 }
 
 function delete_plugin(name) {
-  console.log(name);
   axios.delete(url+name+'/').then((response) => {
     alert(response.data.status);
     location.reload();
@@ -72,8 +71,8 @@ function show_update_plugin(name) {
         </button>\
       </div>\
       <div class="modal-body">\
-        <label for="update_pluginName">Plugin Name :</label><input type="text" name="update_pluginName" id="update_pluginName" required readonly value="'+name+'"><br><br>\
-        <label for="pluginFile">Plugin File :</label><input name="pluginFile" id="pluginFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
+        <label for="update_pluginName">Plugin Name :</label><input type="text" class="form-control bg-light border-0 small" name="update_pluginName" id="update_pluginName" required readonly value="'+name+'">\
+        <label for="pluginFile">Plugin File :</label><br><input class="btn btn-secondary btn-icon-split" name="pluginFile" id="pluginFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
       <div class="modal-footer">\
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
         <a class="btn btn-primary" href="#" onclick="update_plugin()">Create</a>\
@@ -84,7 +83,6 @@ function show_update_plugin(name) {
 
 function update_plugin() {
   var name = document.getElementById("update_pluginName").value;
-  console.log(name);
   if (file && name) {
     var form = new FormData();
     form.append("name", name);

@@ -11,7 +11,7 @@
 <div class="container-fluid">
 <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">NSD Template</h1>
+            <h1 class="h3 mb-0 text-gray-800">Network Service Descriptor Template</h1>
             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#create_nsd_template"> Create NSD Template</button>
           </div>
 
@@ -51,7 +51,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <label for="nfvoType">NFVO Name :</label><input type="text" class="form-control form-control-user" name="nfvoType" id="nfvoType" required><br>
+          <label for="nfvoType">NFVO Name :</label>
+          <select name="nfvoType" id="nfvoType" class="nav-item dropdown" required></select>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -81,5 +82,6 @@
 <!-- <script src="/static/js/nm_js/tree.js"></script> -->
 <script type="text/javascript">
 nsd_template_list();
+get_plugin_list();
 </script>
 {% endblock %}

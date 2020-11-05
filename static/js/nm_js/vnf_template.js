@@ -31,7 +31,6 @@ function vnf_template_list(){
           strdata_handle = strdata.replace(/'/g, '"').replace(/:[ ]*False/, ":false").replace(/:[ ]*True/, ":true");
           result = JSON.parse(strdata_handle);
           vnf_descriptor_id = result.node_templates.VNF1.properties.descriptor_id;
-          // console.log(d.node_templates.VNF1.properties.descriptor_id);
           document.getElementById(response[i].templateId).innerHTML += '\
             <li>'+vnf_descriptor_id+'</li>'
         }
@@ -54,6 +53,7 @@ function vnf_template_list(){
             <td align="center"><a href="#" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_template(\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
+        document.getElementById(response[i].templateId).innerHTML += '<li>No Upload Virtualized Network Function Template!!</li>';
       }
     }
     // Call the dataTables jQuery plugin
@@ -73,7 +73,6 @@ function vnf_template_list(){
 
 
 function delete_template(name) {
-  // console.log(name);
   axios.delete(url+name+'/').then((response) => {
     alert("VNF Template Delete Success");
     location.reload();
@@ -100,16 +99,20 @@ function create_template() {
   var form = new FormData();
   form.append("nfvoType", nfvoType);
   form.append("templateType", "VNF");
-  axios.post(url, form)
-  .then((response) => {
-    console.log(response);
-    alert("VNF Template Create Success !!");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  if (nfvoType) {
+    axios.post(url, form)
+    .then((response) => {
+      alert("VNF Template Create Success !!");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
+  else{
+    alert("Please select a NFVO!");
+  }
 }
 
 
@@ -137,7 +140,6 @@ function show_update_template(name,nfvoType) {
 
 function update_template(nfvoType) {
   var name = document.getElementById("update_template_id").value;
-  // console.log(name);
   if (file && name) {
     var form = new FormData();
     form.append("nfvoType", nfvoType);
@@ -154,4 +156,21 @@ function update_template(nfvoType) {
   }else{
     alert("Please enter Template ID and Template File");
   }
+}
+
+
+function get_plugin_list() {
+  axios.get('http://10.0.0.15:8080/plugin/management/').then((response) => {
+    var response = response.data;
+    if (response.length == 0){
+      document.getElementById("nfvoType").innerHTML = '<option value="">Create NFVO first</option>';
+    }
+    else{
+      document.getElementById("nfvoType").innerHTML = '<option value="">Select a NFVO</option>';
+      for (var i = 0; i < response.length; i++) {
+        document.getElementById("nfvoType").innerHTML += '\
+        <option value="'+response[i].name+'">'+response[i].name+'</option>';
+      }
+    }
+  });
 }

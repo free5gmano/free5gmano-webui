@@ -46,11 +46,11 @@
         <a class="nav-link" href="/plugin">
           <span>Service Mapping Plugin</span></a>
       </li>
-      <li class="nav-item {{ template_active }}">
-        <a class="{{ generic_template_link_status }}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="{{ generic_template_expanded }}" aria-controls="collapseTwo">
+      <li class="nav-item">
+        <a class="{{ generic_template_link_status }}" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="{{ generic_template_expanded }}" aria-controls="collapseOne">
           <span>Generic Template</span>
         </a>
-        <div id="collapseTwo" class="collapse {{ generic_template_show }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse {{ generic_template_show }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
         <a class="collapse-item {{ vnf_template_active }}" href="/VNF_Template">
           <span>VNF Template</span></a>
@@ -69,9 +69,22 @@
         <a class="nav-link" href="/NSS_Instance">
           <span>NSS Instance</span></a>
       </li>
-      <li class="nav-item {{ nssi_topology_active }}">
+<!--       <li class="nav-item {{ nssi_topology_active }}">
         <a class="nav-link" href="/nssi_topology?id=NSSI">
           <span>NSSI Topology</span></a>
+      </li> -->
+      <li class="nav-item">
+        <a class="{{ nssi_view_link_status }}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="{{ nssi_view_expanded }}" aria-controls="collapseTwo">
+          <span>NSSI View</span>
+        </a>
+        <div id="collapseTwo" class="collapse {{ nssi_view_show }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item {{ graph_view_active }}" href="/nssi_topology?id=NSSI">
+          <span>Graph View</span></a>
+        <a class="collapse-item {{ list_view_active }}" href="/nssi_list">
+          <span>List View</span></a>
+          </div>
+        </div>
       </li>
 <!--       <li class="nav-item">
         <a class="nav-link" href="/test_topology" target="_blank">

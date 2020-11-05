@@ -1,5 +1,5 @@
 {% extends 'bar.html' %}
-{% block title %}Network Slice Subnet Instance Topology{% endblock%}
+{% block title %}Network Slice Subnet Instance Graph{% endblock%}
 
 {% block js %}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
@@ -14,16 +14,16 @@
 {% block content %}
 <div class="container-fluid">
 <!-- Page Heading -->
-{% if id == 'NSSI' %}<h1 class="h3 mb-4 text-gray-800">Network Slice Subnet Instance Topology</h1>
-{% else %}<h1 class="h3 mb-4 text-gray-800">{{ id }} Topology</h1>
+{% if id == 'NSSI' %}<h1 class="h3 mb-4 text-gray-800">Network Slice Subnet Instance Graph</h1>
+{% else %}<h1 class="h3 mb-4 text-gray-800">{{ id }} Graph</h1>
 {% endif %}
 
 <div class="row">
-  <!-- Topology Chart -->
+  <!-- Graph Chart -->
   <div class="col-xl-8 col-lg-7">
     <div class="card shadow mb-4" style="height: 170%">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Topology view</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Graph view</h6>
       </div>
       <div class="card-body">
         <div class="chart-area">

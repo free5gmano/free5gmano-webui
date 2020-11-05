@@ -6,18 +6,15 @@ function nsd_template_list(){
     // console.log(response.data);
     var response = response.data;
     for (var i =0; i< response.length; i++) {
-      // console.log(nsd_id);
       if (response[i].templateType == "NSD" && response[i].operationStatus == "UPLOAD") {
-        // console.log(nsd_id);
         nsd_id = response[i].templateId;
-        console.log(nsd_id);
         document.getElementById("nsd_table").innerHTML += '\
           <tr>\
             <td>'+nsd_id+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
-            <td align="center"><a href="#" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#vnf_list_Modal'+nsd_id+'"><i class="fas fa-fw fa-wrench"></i></a></td>\
+            <td align="center"><a href="#" class="btn btn-info btn-circle" data-toggle="modal" data-target="#vnf_list_Modal'+nsd_id+'"><i class="fas fa-file-alt text-white"></i></a></td>\
             <td align="center"><a href="#" onclick="show_update_template(\''+nsd_id+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
             <td align="center"><a href="'+response[i].templateFile+'" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_template(\''+nsd_id+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
@@ -59,14 +56,13 @@ function nsd_template_list(){
       }
       else if (response[i].templateType == "NSD"){
         nsd_id = response[i].templateId;
-        console.log(nsd_id);
         document.getElementById("nsd_table").innerHTML += '\
           <tr>\
             <td>'+nsd_id+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
-            <td align="center"><a href="#" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#vnf_list_Modal'+nsd_id+'"><i class="fas fa-fw fa-wrench"></i></a></td>\
+            <td align="center"><a href="#" class="btn btn-info btn-circle" data-toggle="modal" data-target="#vnf_list_Modal'+nsd_id+'"><i class="fas fa-file-alt text-white"></i></a></td>\
             <td align="center"><a href="#" onclick="show_update_template(\''+nsd_id+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
             <td align="center"><a href="#" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_template(\''+nsd_id+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
@@ -108,7 +104,6 @@ function nsd_template_list(){
 
 
 function delete_template(name) {
-  // console.log(name);
   axios.delete(url+name+'/').then((response) => {
     alert("NSD Template Delete Success");
     location.reload();
@@ -137,7 +132,6 @@ function create_template() {
   form.append("templateType", "NSD");
   axios.post(url, form)
   .then((response) => {
-    console.log(response);
     alert("NSD Template Create Success !!");
     location.reload();
   })
@@ -172,7 +166,6 @@ function show_update_template(name,nfvoType) {
 
 function update_template(nfvoType) {
   var name = document.getElementById("update_template_id").value;
-  // console.log(name);
   if (file && name) {
     var form = new FormData();
     form.append("nfvoType", nfvoType);
@@ -189,4 +182,21 @@ function update_template(nfvoType) {
   }else{
     alert("Please enter Template ID and Template File");
   }
+}
+
+
+function get_plugin_list() {
+  axios.get('http://10.0.0.15:8080/plugin/management/').then((response) => {
+    var response = response.data;
+    if (response.length == 0){
+      document.getElementById("nfvoType").innerHTML = '<option value="">Create NFVO first</option>';
+    }
+    else{
+      document.getElementById("nfvoType").innerHTML = '<option value="">Select a NFVO</option>';
+      for (var i = 0; i < response.length; i++) {
+        document.getElementById("nfvoType").innerHTML += '\
+        <option value="'+response[i].name+'">'+response[i].name+'</option>';
+      }
+    }
+  });
 }

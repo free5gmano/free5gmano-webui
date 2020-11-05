@@ -32,16 +32,32 @@ def dashboard(request):
     	'dashboard_active': str('active'),
     	'generic_template_link_status': str('nav-link collapsed'),
     	'generic_template_expanded': str('false'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
     })
 
 
 def nssi_topology(request):
-    return render(request, 'topology.html',{
+    return render(request, 'nssi_topology.html',{
     	'id': str(request.GET['id']),
+    	'graph_view_active': str('active'),
     	'generic_template_link_status': str('nav-link collapsed'),
-    	'nssi_topology_active': str('active'),
      	'generic_template_expanded': str('false'),
-   })
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('true'),
+     	'nssi_view_show': str('show'),
+  })
+
+
+# def nssi_list(request):
+#     return render(request, 'nssi_list.html',{
+#     	'id': str(request.GET['id']),
+#     	'list_view_active': str('active'),
+#     	'generic_template_link_status': str('nav-link collapsed'),
+#      	'generic_template_expanded': str('false'),
+#    	'nssi_view_link_status': str('nav-link collapsed'),
+#    	'nssi_view_expanded': str('true'),
+#    })
 
 
 def NSS_Instance(request):
@@ -49,14 +65,18 @@ def NSS_Instance(request):
     	'NSS_Instance_active': str('active'),
     	'generic_template_link_status': str('nav-link collapsed'),
      	'generic_template_expanded': str('false'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
    })
 
 
 def plugin(request):
     return render(request, 'plugin.html',{
-    	'generic_template_link_status': str('nav-link collapsed'),
     	'plugin_active': str('active'),
+    	'generic_template_link_status': str('nav-link collapsed'),
     	'generic_template_expanded': str('false'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
     })
 
 
@@ -66,6 +86,8 @@ def VNF_Template(request):
     	'generic_template_link_status': str('nav-link'),
     	'generic_template_expanded': str('true'),
     	'generic_template_show': str('show'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
     })
 
 
@@ -75,6 +97,8 @@ def NSD_Template(request):
     	'generic_template_link_status': str('nav-link'),
     	'generic_template_expanded': str('true'),
     	'generic_template_show': str('show'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
     })
 
 
@@ -84,4 +108,6 @@ def NRM_Template(request):
     	'generic_template_link_status': str('nav-link'),
     	'generic_template_expanded': str('true'),
     	'generic_template_show': str('show'),
+    	'nssi_view_link_status': str('nav-link collapsed'),
+    	'nssi_view_expanded': str('false'),
     })
