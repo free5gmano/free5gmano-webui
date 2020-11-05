@@ -157,7 +157,7 @@ function update_template(nfvoType) {
 
 
 function get_plugin_list() {
-  axios.get('http://10.0.0.15:8080/plugin/management/').then((response) => {
+  axios.get('http://127.0.0.1:8080/plugin/management/').then((response) => {
     var response = response.data;
     if (response.length == 0){
       document.getElementById("nfvoType").innerHTML = '<option value="">Create NFVO first</option>';
