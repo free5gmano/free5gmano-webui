@@ -1,4 +1,4 @@
-const url = 'http://10.0.0.15:8080/ObjectManagement/GenericTemplate/';
+const url = 'http://127.0.0.1:8080/ObjectManagement/GenericTemplate/';
 
 
 function nsd_template_list(){

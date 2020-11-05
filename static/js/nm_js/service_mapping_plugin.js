@@ -1,5 +1,5 @@
 // const url = 'http://127.0.0.1:30088/plugin/management/';
-const url = 'http://10.0.0.15:8080/plugin/management/';
+const url = 'http://127.0.0.1/plugin/management/';
 
 function service_mapping_plugin_list(){
   axios.get(url).then((response) => {

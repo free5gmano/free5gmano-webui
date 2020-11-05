@@ -1,4 +1,4 @@
-const url = 'http://10.0.0.15:8080/ObjectManagement/GenericTemplate/';
+const url = 'http://127.0.0.1:8080/ObjectManagement/GenericTemplate/';
 
 
 function vnf_template_list(){
@@ -13,9 +13,8 @@ function vnf_template_list(){
           <tr>\
             <td>\
               <ul id="myUL">\
-                <li class="caret">'+response[i].templateId+'\
-                  <ul class="nested" id="'+response[i].templateId+'">\
-                  </ul>\
+                <li><span class="caret">'+response[i].templateId+'</span>\
+                  <ul class="nested" id="'+response[i].templateId+'"></ul>\
                 </li>\
               </ul>\
             </td>\
@@ -31,8 +30,7 @@ function vnf_template_list(){
           strdata_handle = strdata.replace(/'/g, '"').replace(/:[ ]*False/, ":false").replace(/:[ ]*True/, ":true");
           result = JSON.parse(strdata_handle);
           vnf_descriptor_id = result.node_templates.VNF1.properties.descriptor_id;
-          document.getElementById(response[i].templateId).innerHTML += '\
-            <li>'+vnf_descriptor_id+'</li>'
+          document.getElementById(response[i].templateId).innerHTML += '<li>'+vnf_descriptor_id+'</li>';
         }
       }
       else if (response[i].templateType == "VNF"){
@@ -40,9 +38,8 @@ function vnf_template_list(){
           <tr>\
             <td>\
               <ul id="myUL">\
-                <li class="caret">'+response[i].templateId+'\
-                  <ul class="nested" id="'+response[i].templateId+'">\
-                  </ul>\
+                <li><span class="caret">'+response[i].templateId+'</span>\
+                  <ul class="nested" id="'+response[i].templateId+'"></ul>\
                 </li>\
               </ul>\
             </td>\
