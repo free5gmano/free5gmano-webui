@@ -1,6 +1,5 @@
-function nss_instance_list(){
-  const url = 'http://127.0.0.1:8080/ObjectManagement/NetworkSliceSubnet/*/?scope=[%27BASE_NTH_LEVEL%27,0]';
-  axios.get(url).then((response) => {
+function nss_instance_list(url){
+  axios.get(url+'ObjectManagement/NetworkSliceSubnet/*/?scope=[%27BASE_NTH_LEVEL%27,0]').then((response) => {
     console.log(response.data);
     for (var i = 0; i < response.data.attributeListOut.length; i++) {
       document.getElementById("nssitable").innerHTML += '\

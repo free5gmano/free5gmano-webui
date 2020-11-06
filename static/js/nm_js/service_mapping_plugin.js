@@ -1,8 +1,6 @@
-// const url = 'http://127.0.0.1:30088/plugin/management/';
-const url = 'http://127.0.0.1/plugin/management/';
 
-function service_mapping_plugin_list(){
-  axios.get(url).then((response) => {
+function service_mapping_plugin_list(url){
+  axios.get(url+'plugin/management/').then((response) => {
     // console.log(response.data);
     var response = response.data;
     for (var i = 0; i < response.length; i++) {
@@ -11,9 +9,9 @@ function service_mapping_plugin_list(){
           <td>'+response[i].name+'</td>\
           <td>'+response[i].allocate_nssi+'</td>\
           <td>'+response[i].deallocate_nssi+'</td>\
-          <td align="center"><a href="#" onclick="show_update_plugin(\''+response[i].name+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_plugin_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
+          <td align="center"><a href="#" onclick="show_update_plugin(\''+url+'plugin/management/\',\''+response[i].name+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_plugin_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
           <td align="center"><a href="'+response[i].pluginFile+'" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
-          <td align="center"><a href="#" onclick="delete_plugin(\''+response[i].name+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
+          <td align="center"><a href="#" onclick="delete_plugin(\''+url+'plugin/management/\',\''+response[i].name+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
         </tr>';
     }
     // Call the dataTables jQuery plugin
@@ -23,7 +21,7 @@ function service_mapping_plugin_list(){
   });
 }
 
-function delete_plugin(name) {
+function delete_plugin(url, name) {
   axios.delete(url+name+'/').then((response) => {
     alert(response.data.status);
     location.reload();
@@ -42,17 +40,18 @@ function upload(e) {
     console.log(file);
 }
 
-function create_plugin() {
+function create_plugin(url) {
   var name = document.getElementById("create_pluginName").value;
   if (file && name) {
     var form = new FormData();
     form.append("name", name);
     form.append("pluginFile", file);
-    axios.post(url, form)
+    axios.post(url+'plugin/management/', form)
     .then((response) => {
       location.reload();
     })
     .catch((error) => {
+      console.log(error);
       alert("Service Mapping Plugin model with this name already exists.");
     });
   }else{
@@ -60,7 +59,7 @@ function create_plugin() {
   }
 }
 
-function show_update_plugin(name) {
+function show_update_plugin(url, name) {
   document.getElementById("update_plugin_Modal").innerHTML = '\
   <div class="modal-dialog" role="document">\
     <div class="modal-content">\
@@ -75,13 +74,13 @@ function show_update_plugin(name) {
         <label for="pluginFile">Plugin File :</label><br><input class="btn btn-secondary btn-icon-split" name="pluginFile" id="pluginFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
       <div class="modal-footer">\
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
-        <a class="btn btn-primary" href="#" onclick="update_plugin()">Create</a>\
+        <a class="btn btn-primary" href="#" onclick="update_plugin(\''+url+'\')">Create</a>\
       </div>\
     </div>\
   </div>';
 }
 
-function update_plugin() {
+function update_plugin(url) {
   var name = document.getElementById("update_pluginName").value;
   if (file && name) {
     var form = new FormData();

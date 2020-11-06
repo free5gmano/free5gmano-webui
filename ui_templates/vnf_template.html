@@ -55,7 +55,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#" onclick="create_template()">Create</a>
+          <a class="btn btn-primary" href="#" onclick="create_template('{{ NM_URL }}')">Create</a>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@
 <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <!-- <script src="/static/js/nm_js/tree.js"></script> -->
 <script type="text/javascript">
-vnf_template_list();
-get_plugin_list();
+vnf_template_list('{{ NM_URL }}');
+get_plugin_list('{{ NM_URL }}');
 </script>
 {% endblock %}

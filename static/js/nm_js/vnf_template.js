@@ -1,8 +1,8 @@
-const url = 'http://127.0.0.1:8080/ObjectManagement/GenericTemplate/';
+// const url = 'http://10.20.1.111:8080/ObjectManagement/GenericTemplate/';
 
 
-function vnf_template_list(){
-  axios.get(url).then((response) => {
+function vnf_template_list(url){
+  axios.get(url+'ObjectManagement/GenericTemplate/').then((response) => {
     // console.log(response.data);
     var response = response.data;
     for (var i =0; i< response.length; i++) {
@@ -21,9 +21,9 @@ function vnf_template_list(){
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
-            <td align="center"><a href="#" onclick="show_update_template(\''+response[i].templateId+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
+            <td align="center"><a href="#" onclick="show_update_template(\''+url+'ObjectManagement/GenericTemplate/\',\''+response[i].templateId+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
             <td align="center"><a href="'+response[i].templateFile+'" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
-            <td align="center"><a href="#" onclick="delete_template(\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
+            <td align="center"><a href="#" onclick="delete_template(\''+url+'ObjectManagement/GenericTemplate/\',\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         for (var j=0; j<response[i].content.length; j++){
           strdata = response[i].content[j].topology_template;
@@ -46,9 +46,9 @@ function vnf_template_list(){
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
-            <td align="center"><a href="#" onclick="show_update_template(\''+response[i].templateId+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
+            <td align="center"><a href="#" onclick="show_update_template(\''+url+'ObjectManagement/GenericTemplate/\',\''+response[i].templateId+'\',\''+response[i].nfvoType+'\')" class="btn btn-warning btn-circle" data-toggle="modal" data-target="#update_template_Modal"><i class="fas fa-fw fa-wrench"></i></a></td>\
             <td align="center"><a href="#" class="btn btn-primary btn-circle"><i class="fas fa-arrow-down"></i></a></td>\
-            <td align="center"><a href="#" onclick="delete_template(\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
+            <td align="center"><a href="#" onclick="delete_template(\''+url+'ObjectManagement/GenericTemplate/\',\''+response[i].templateId+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         document.getElementById(response[i].templateId).innerHTML += '<li>No Upload Virtualized Network Function Template!!</li>';
       }
@@ -69,7 +69,7 @@ function vnf_template_list(){
 }
 
 
-function delete_template(name) {
+function delete_template(url, name) {
   axios.delete(url+name+'/').then((response) => {
     alert("VNF Template Delete Success");
     location.reload();
@@ -91,13 +91,13 @@ function upload(e) {
 }
 
 
-function create_template() {
+function create_template(url) {
   var nfvoType = document.getElementById("nfvoType").value;
   var form = new FormData();
   form.append("nfvoType", nfvoType);
   form.append("templateType", "VNF");
   if (nfvoType) {
-    axios.post(url, form)
+    axios.post(url+'ObjectManagement/GenericTemplate/', form)
     .then((response) => {
       alert("VNF Template Create Success !!");
       location.reload();
@@ -113,7 +113,7 @@ function create_template() {
 }
 
 
-function show_update_template(name,nfvoType) {
+function show_update_template(url, name, nfvoType) {
   document.getElementById("update_template_Modal").innerHTML = '\
   <div class="modal-dialog" role="document">\
     <div class="modal-content">\
@@ -128,14 +128,14 @@ function show_update_template(name,nfvoType) {
         <label for="templateFile">VNF Template File :</label><br><input class="btn btn-secondary btn-icon-split" name="templateFile" id="templateFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
       <div class="modal-footer">\
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
-        <a class="btn btn-primary" href="#" onclick="update_template(\''+nfvoType+'\')">Update</a>\
+        <a class="btn btn-primary" href="#" onclick="update_template(\''+url+'\',\''+nfvoType+'\')">Update</a>\
       </div>\
     </div>\
   </div>';
 }
 
 
-function update_template(nfvoType) {
+function update_template(url, nfvoType) {
   var name = document.getElementById("update_template_id").value;
   if (file && name) {
     var form = new FormData();
@@ -156,8 +156,8 @@ function update_template(nfvoType) {
 }
 
 
-function get_plugin_list() {
-  axios.get('http://127.0.0.1:8080/plugin/management/').then((response) => {
+function get_plugin_list(url) {
+  axios.get(url+'plugin/management/').then((response) => {
     var response = response.data;
     if (response.length == 0){
       document.getElementById("nfvoType").innerHTML = '<option value="">Create NFVO first</option>';

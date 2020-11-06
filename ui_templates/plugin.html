@@ -61,7 +61,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="#" onclick="create_plugin()">Create</a>
+          <a class="btn btn-primary" href="#" onclick="create_plugin('{{ NM_URL }}')">Create</a>
         </div>
       </div>
     </div>
@@ -80,6 +80,6 @@
 <script src="/static/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="/static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript">
-  service_mapping_plugin_list();
+  service_mapping_plugin_list('{{ NM_URL }}');
 </script>
 {% endblock %}
