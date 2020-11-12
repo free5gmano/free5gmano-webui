@@ -5,10 +5,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
 	url(r'^test/$', test),
-    url(r'^hellonuts/$', hello_world),
+ #    url(r'^hellonuts/$', hello_world),
     url(r'^dashboard/$', dashboard),
     url(r'^nssi_topology/$', nssi_topology),
-    url(r'^nssi_list/$', nssi_list),
+    # url(r'^nssi_list/$', nssi_list),
     url(r'^NSS_Instance/$', NSS_Instance),
     url(r'^plugin/$', plugin),
     url(r'^VNF_Template/$', VNF_Template),

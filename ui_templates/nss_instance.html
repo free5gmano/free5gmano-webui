@@ -2,6 +2,7 @@
 {% block title %}Network Slice Subnet Instance{% endblock%}
 {% block js %}
 <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/tree.css">
 <script src="/static/js/nm_js/nss_instance.js"></script>
 {% endblock %}
 
@@ -20,11 +21,12 @@
                   <thead>
                     <tr>
                       <th>Network Slice Subnet Instance(NSSI) Id</th>
-                      <th>Network Service(NS) Id</th>
-                      <th>Slice Profile Id List</th>
+                      <th>Network Service(NS)</th>
                       <th>Administrative State</th>
                       <th>Operational State</th>
                       <th>Topology</th>
+                      <th>Deallocate</th>
+                      <th>Delete NSSI</th>
                     </tr>
                   </thead>
                   <tbody id="nssitable">

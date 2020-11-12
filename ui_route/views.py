@@ -11,20 +11,13 @@ from datetime import datetime
 #     })
 
 def test(request):
-    uri = "http://10.0.0.15:8080/plugin/management/"
-    response = requests.get(uri)
-    print(response.json())
-    if response.status_code == 200:
-    	for i in response.json():
-            return render(request, 'test.html', {
-            'test': str(i['name']),
-            })
+    return render(request, 'test.html', {})
 
 
-def hello_world(request):
-    return render(request, 'template_whoami.html', {
-        'content': str(datetime.today()),
-     })
+# def hello_world(request):
+#     return render(request, 'template_whoami.html', {
+#         'content': str(datetime.today()),
+#      })
 
 
 def dashboard(request):
@@ -51,24 +44,25 @@ def nssi_topology(request):
   })
 
 
-def nssi_list(request):
-    return render(request, 'nssi_list.html',{
-    	'id': str(request.GET['id']),
-    	'list_view_active': str('active'),
-    	'generic_template_link_status': str('nav-link collapsed'),
-     	'generic_template_expanded': str('false'),
-   	'nssi_view_link_status': str('nav-link collapsed'),
-   	'nssi_view_expanded': str('true'),
-   })
+# def nssi_list(request):
+#     return render(request, 'nssi_list.html',{
+#     	'id': str(request.GET['id']),
+#     	'list_view_active': str('active'),
+#     	'generic_template_link_status': str('nav-link collapsed'),
+#      	'generic_template_expanded': str('false'),
+# 	   	'nssi_view_link_status': str('nav-link collapsed'),
+# 	   	'nssi_view_expanded': str('true'),
+#    })
 
 
 def NSS_Instance(request):
     return render(request, 'nss_instance.html',{
-    	'NSS_Instance_active': str('active'),
+    	'list_view_active': str('active'),
     	'generic_template_link_status': str('nav-link collapsed'),
      	'generic_template_expanded': str('false'),
-    	'nssi_view_link_status': str('nav-link collapsed'),
-    	'nssi_view_expanded': str('false'),
+	   	'nssi_view_link_status': str('nav-link collapsed'),
+	   	'nssi_view_expanded': str('true'),
+	   	'nssi_view_show': str('show'),
     	'NM_URL': settings.NM_URL,
    })
 

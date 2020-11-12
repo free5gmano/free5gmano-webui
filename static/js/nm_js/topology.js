@@ -77,6 +77,7 @@ axios.get(topology_url).then(response => {
           roam: true,
           // focusNodeAdjacency: true,
           label: {
+              show: true,
               position: 'bottom',
           },
           lineStyle: {
