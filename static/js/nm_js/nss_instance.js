@@ -37,9 +37,15 @@ function nss_instance_list(url){
           result = JSON.parse(strdata_handle);
           console.log(result);
         for (var j=0; j<result.length; j++){
-          // console.log(result[j]);
+          var vnf_ip;
           vnf_name = result[j].vnfProductName;
-          vnf_ip = result[j].instantiatedVnfInfo.extCpInfo[0].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses;
+          vnf_ip_handle = result[j].instantiatedVnfInfo.extCpInfo;
+          for (var k = 0; k < vnf_ip_handle.length; k++) {
+            if (vnf_ip_handle[k].cpdId == "CP2") {
+              console.log(vnf_ip_handle[k].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses);
+              vnf_ip = vnf_ip_handle[k].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses;
+            }
+          }
           document.getElementById(response[i].nssiId).innerHTML += '\
             <tr>\
               <td style="text-align: center">'+vnf_name+'</td>\
@@ -97,20 +103,15 @@ function nss_instance_list(url){
 
 
 function deallocate_nssi(url, nssiID){
-  axios.delete(url+nssiID)
-  .catch(function (error) {
-    if (error.response) {
-      alert("NSSI Deallocate Success");
-      location.reload();
-    }
-    else if (error.request) {
-      alert("test");
-    }
-    else {
-      console.log('Error', error.message);
-      alert("test123");
-    }
-  });
+  axios.delete(url+nssiID+'/')
+  .then((response) => {
+    console(response);
+    alert("NSSI Deallocate Success");
+  })
+  .catch((error) => {
+    console.log(error);
+    alert("NSSI in not allocated");
+  })
 }
 
 
