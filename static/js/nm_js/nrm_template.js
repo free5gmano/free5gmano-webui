@@ -40,14 +40,17 @@ function nrm_template_list(url){
 
 
 function delete_template(url, name) {
-  axios.delete(url+name+'/').then((response) => {
-    alert("NRM Template Delete Success");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  var yes = confirm("Sure to delete NRM Template ?");
+  if (yes) {
+    axios.delete(url+name+'/').then((response) => {
+      alert("NRM Template Delete Success");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
 }
 
 
@@ -137,3 +140,34 @@ function get_plugin_list(url) {
     }
   });
 }
+
+
+// function show_nrm_info(url, nrmid) {
+//   // console.log("show nrm info");
+//   axios.get(url+nrmid+'/')
+//   .then((response) => {
+//     console.log(response.data);
+//     if (response.data.operationStatus == "UPLOAD") {
+//       document.getElementById("nrm_info_Modal").innerHTML += '\
+//         <div class="modal-dialog" role="document">\
+//           <div class="modal-content">\
+//             <div class="modal-header">\
+//               <h5 class="modal-title" id="exampleModalLabel">Network Resource Info</h5>\
+//               <button class="close" type="button" data-dismiss="modal" aria-label="Close">\
+//                 <span aria-hidden="true">×</span>\
+//               </button>\
+//             </div>\
+//             <div class="modal-body">\
+//               <label for="update_template_id">NRM Template ID :</label><input type="text" class="form-control bg-light border-0 small" name="update_template_id" id="update_template_id" required readonly value="'+name+'"><br>\
+//               <label for="templateFile">NRM Template File :</label><br><input class="btn btn-secondary btn-icon-split" name="templateFile" id="templateFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
+//             <div class="modal-footer">\
+//               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
+//               <a class="btn btn-primary" href="#" onclick="update_template(\''+url+'\',\''+nfvoType+'\')">Update</a>\
+//             </div>\
+//           </div>\
+//         </div>';
+//     }
+//   })
+// }
+
+// <td align="center"><a href="#" onclick="show_nrm_info(\''+url+'ObjectManagement/GenericTemplate/\',\''+nrm_id+'\')" class="btn btn-info btn-circle"><i class="fas fa-file-alt text-white"></i></a></td>\

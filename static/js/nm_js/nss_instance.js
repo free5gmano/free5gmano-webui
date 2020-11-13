@@ -103,25 +103,31 @@ function nss_instance_list(url){
 
 
 function deallocate_nssi(url, nssiID){
-  axios.delete(url+nssiID+'/')
-  .then((response) => {
-    console(response);
-    alert("NSSI Deallocate Success");
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("NSSI in not allocated");
-  })
+  var yes = confirm("Sure to deallocate NSSI ?");
+  if (yes) {
+    axios.delete(url+nssiID+'/')
+    .then((response) => {
+      console(response);
+      alert("NSSI Deallocate Success");
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("NSSI in not allocated");
+    });
+  }
 }
 
 
 function delete_nssi(url){
-  axios.delete(url).then((response) => {
-    alert("NSSI Delete Success");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  var yes = confirm("Sure to delete NSSI ?");
+  if (yes) {
+    axios.delete(url).then((response) => {
+      alert("NSSI Delete Success");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
 }

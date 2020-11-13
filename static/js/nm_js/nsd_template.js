@@ -104,14 +104,17 @@ function nsd_template_list(url){
 
 
 function delete_template(url, name) {
-  axios.delete(url+name+'/').then((response) => {
-    alert("NSD Template Delete Success");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  var yes = confirm("Sure to delete NSD Template ?");
+  if (yes) {
+    axios.delete(url+name+'/').then((response) => {
+      alert("NSD Template Delete Success");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
 }
 
 
