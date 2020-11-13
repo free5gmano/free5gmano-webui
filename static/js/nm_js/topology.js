@@ -26,7 +26,7 @@ axios.get(topology_url).then(response => {
   var categories = [];
   datas.nodes.forEach(function(node) {
     node.itemStyle = null;
-    // node.symbol = 'arrow';
+    // node.symbol = 'image://https://lh3.googleusercontent.com/Xrl4VPHXpU676rucGuA2nWTlmyEZ0hmTuGH_GheNYEVUkfxx5AXE2GHhpT1c_1A46n19kvG6M5WORDjoAWo8bhbQO-QLlNyNke8qxiYJWRF1z49vvoxlxSiP_amlX0GE65B6xUoePw=w2400';
     // node.symbolSize = 20;
     node.category = node.attributes.modularity_class;
     node.value = node.category;
@@ -42,7 +42,10 @@ axios.get(topology_url).then(response => {
   //   name: 'NSI'
   // };
   categories[1] = {
-    name: 'VNF'
+    name: "VNF",
+    itemStyle: {
+      color: "rgb(55, 206, 13)"
+    }
   };
 
   label = false;
@@ -79,6 +82,7 @@ axios.get(topology_url).then(response => {
           label: {
               show: true,
               position: 'bottom',
+              color: 'rgba(0, 0, 0, 1)',
           },
           lineStyle: {
                     color: 'source',
