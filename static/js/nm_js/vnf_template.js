@@ -6,9 +6,9 @@ function vnf_template_list(url){
     // console.log(response.data);
     var response = response.data;
     for (var i =0; i< response.length; i++) {
-      // console.log(response[i].templateType)
+      // console.log(response[i].templateType);
       if (response[i].templateType == "VNF" && response[i].operationStatus == "UPLOAD") {
-        // console.log(response[i].content)
+        // console.log(response[i].content);
         document.getElementById("vnf_table").innerHTML += '\
           <tr>\
             <td>\
@@ -18,6 +18,8 @@ function vnf_template_list(url){
                 </li>\
               </ul>\
             </td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -43,6 +45,8 @@ function vnf_template_list(url){
                 </li>\
               </ul>\
             </td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -95,11 +99,15 @@ function upload(e) {
 
 
 function create_template(url) {
+  var name = document.getElementById("template_name").value;
+  var description = document.getElementById("vnf_description").value;
   var nfvoType = document.getElementById("nfvoType").value;
   var form = new FormData();
   form.append("nfvoType", nfvoType);
   form.append("templateType", "VNF");
-  if (nfvoType) {
+  form.append("name", name);
+  form.append("description", description);
+ if (nfvoType && name) {
     axios.post(url+'ObjectManagement/GenericTemplate/', form)
     .then((response) => {
       alert("VNF Template Create Success !!");
@@ -111,7 +119,7 @@ function create_template(url) {
     });
   }
   else{
-    alert("Please select a NFVO!");
+    alert("Please select a NFVO or enter template name!");
   }
 }
 

@@ -2,13 +2,15 @@ function nrm_template_list(url){
   axios.get(url+'ObjectManagement/GenericTemplate/').then((response) => {
     // console.log(response.data);
     var response = response.data;
-    console.log(response)
+    // console.log(response);
     for (var i =0; i< response.length; i++) {
       if (response[i].templateType == "NRM" && response[i].operationStatus == "UPLOAD") {
         nrm_id = response[i].templateId;
         document.getElementById("nrm_table").innerHTML += '\
           <tr>\
             <td>'+nrm_id+'</td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -22,6 +24,8 @@ function nrm_template_list(url){
         document.getElementById("nrm_table").innerHTML += '\
           <tr>\
             <td>'+nrm_id+'</td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -65,20 +69,28 @@ function upload(e) {
 
 
 function create_template(url) {
+  var name = document.getElementById("template_name").value;
+  var description = document.getElementById("nrm_description").value;
   var nfvoType = document.getElementById("nfvoType").value;
   var form = new FormData();
   form.append("nfvoType", nfvoType);
   form.append("templateType", "NRM");
-  axios.post(url+'ObjectManagement/GenericTemplate/', form)
-  .then((response) => {
-    console.log(response)
-    alert("NRM Template Create Success !!");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  form.append("name", name);
+  form.append("description", description);
+ if (nfvoType && name) {
+    axios.post(url+'ObjectManagement/GenericTemplate/', form)
+    .then((response) => {
+      alert("NRM Template Create Success !!");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
+  else{
+    alert("Please select a NFVO or enter template name!");
+  }
 }
 
 

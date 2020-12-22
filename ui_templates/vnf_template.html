@@ -25,6 +25,8 @@
                   <thead>
                     <tr>
                       <th>Id List</th>
+                      <th>Template Name</th>
+                      <th>Description</th>
                       <th>Type</th>
                       <th>NFVO</th>
                       <th>VNF Status</th>
@@ -50,6 +52,14 @@
           </button>
         </div>
         <div class="modal-body">
+          <div class="form-group">
+            <label for="nfvoType">Template Name :</label>
+            <input type="text" class="form-control form-control-user" id="template_name" placeholder="Template Name" required>
+          </div>
+          <div class="form-group">
+            <label for="nfvoType">VNF Description :</label>
+            <input type="text" class="form-control form-control-user" id="vnf_description" placeholder="VNF Description">
+          </div>
           <label for="nfvoType">NFVO Name :</label>
           <select name="nfvoType" id="nfvoType" class="nav-item dropdown" required></select>
         </div>

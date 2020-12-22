@@ -11,6 +11,8 @@ function nsd_template_list(url){
         document.getElementById("nsd_table").innerHTML += '\
           <tr>\
             <td>'+nsd_id+'</td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -59,6 +61,8 @@ function nsd_template_list(url){
         document.getElementById("nsd_table").innerHTML += '\
           <tr>\
             <td>'+nsd_id+'</td>\
+            <td>'+response[i].name+'</td>\
+            <td>'+response[i].description+'</td>\
             <td>'+response[i].templateType+'</td>\
             <td>'+response[i].nfvoType+'</td>\
             <td>'+response[i].operationStatus+'</td>\
@@ -129,19 +133,28 @@ function upload(e) {
 
 
 function create_template(url) {
+  var name = document.getElementById("template_name").value;
+  var description = document.getElementById("nsd_description").value;
   var nfvoType = document.getElementById("nfvoType").value;
   var form = new FormData();
   form.append("nfvoType", nfvoType);
   form.append("templateType", "NSD");
-  axios.post(url+'ObjectManagement/GenericTemplate/', form)
-  .then((response) => {
-    alert("NSD Template Create Success !!");
-    location.reload();
-  })
-  .catch((error) => {
-    console.log(error);
-    alert("ERROR!!");
-  });
+  form.append("name", name);
+  form.append("description", description);
+ if (nfvoType && name) {
+    axios.post(url+'ObjectManagement/GenericTemplate/', form)
+    .then((response) => {
+      alert("NSD Template Create Success !!");
+      location.reload();
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("ERROR!!");
+    });
+  }
+  else{
+    alert("Please select a NFVO or enter template name!");
+  }
 }
 
 

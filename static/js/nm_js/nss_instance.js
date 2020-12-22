@@ -107,8 +107,8 @@ function deallocate_nssi(url, nssiID){
   if (yes) {
     axios.delete(url+nssiID+'/')
     .then((response) => {
-      console(response);
       alert("NSSI Deallocate Success");
+      location.reload();
     })
     .catch((error) => {
       console.log(error);
