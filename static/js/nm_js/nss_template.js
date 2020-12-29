@@ -3,7 +3,7 @@ function nss_template_list(url) {
         var response = response.data;
         for (var i = 0; i < response.length; i++) {
             templateId = response[i].templateId;
-            document.getElementById("nrm_table").innerHTML += '\
+            document.getElementById("nss_table").innerHTML += '\
           <tr>\
             <td>' + templateId + '</td>\
             <td>' + response[i].description + '</td>\
@@ -11,19 +11,20 @@ function nss_template_list(url) {
             <td align="center"><a href="#" class="btn btn-info btn-circle" data-toggle="modal" data-target="#generic_templates_Modal' + templateId + '"><i class="fas fa-file-alt text-white"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_template(\'' + url + 'ObjectManagement/SliceTemplate/\',\'' + templateId + '\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
+
             document.getElementById("generic_templates_Modal").innerHTML += '\
         <div class="modal fade" id="generic_templates_Modal' + templateId + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">\
           <div class="modal-dialog" role="document">\
             <div class="modal-content">\
               <div class="modal-header">\
-                <h5 class="modal-title" id="exampleModalLabel">VNF List</h5>\
+                <h5 class="modal-title" id="exampleModalLabel">Generic Template List</h5>\
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">\
                   <span aria-hidden="true">×</span>\
                 </button>\
               </div>\
               <div class="modal-body">\
-                <label for="update_template_id">NSD Template ID :</label><input type="text" class="form-control bg-light border-0 small" name="update_template_id" id="update_template_id" required readonly value="' + templateId + '">\
-                <label>VNF ID List :\
+                <label for="update_template_id">NSS Template ID :</label><input type="text" class="form-control bg-light border-0 small" name="update_template_id" id="update_template_id_' + templateId + '" required readonly value="' + templateId + '">\
+                <label>Template List :\
                   <table id="generic_templates_list_' + templateId + '">\
                     <tr></tr>\
                   </table>\
@@ -36,10 +37,14 @@ function nss_template_list(url) {
           </div>\
         </div>';
             for (var j = 0; j < response[i].genericTemplates.length; j++) {
-                genericTemplatesId = response[i].genericTemplates[j].templateId;
-                 document.getElementById("generic_templates_list_" + templateId).innerHTML += '<td>' + genericTemplatesId + '</td>';
+                genericTemplatesNfvoType = response[i].genericTemplates[j].nfvoType;
+                templateType = response[i].genericTemplates[j].templateType + ' : ';
+                document.getElementById("generic_templates_list_" + templateId).innerHTML += '<td>' + templateType + genericTemplatesNfvoType + '</td>';
             }
         }
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
     });
 }
 
@@ -58,16 +63,6 @@ function delete_template(url, name) {
     }
 }
 
-
-var file;
-
-function upload(e) {
-    file = e.files[0];
-    if (!file) {
-        return;
-    }
-    console.log(file);
-}
 
 function create_template(url) {
     var vnf_id = document.getElementById("vnf_template").value;
@@ -95,50 +90,6 @@ function create_template(url) {
         alert("Please select a NFVO or VNF or NSD or NRM!");
     }
 }
-
-
-function show_update_template(url, name, nfvoType) {
-    document.getElementById("update_template_Modal").innerHTML = '\
-  <div class="modal-dialog" role="document">\
-    <div class="modal-content">\
-      <div class="modal-header">\
-        <h5 class="modal-title" id="exampleModalLabel">Update NRM Template</h5>\
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close">\
-          <span aria-hidden="true">×</span>\
-        </button>\
-      </div>\
-      <div class="modal-body">\
-        <label for="update_template_id">NRM Template ID :</label><input type="text" class="form-control bg-light border-0 small" name="update_template_id" id="update_template_id" required readonly value="' + name + '"><br>\
-        <label for="templateFile">NRM Template File :</label><br><input class="btn btn-secondary btn-icon-split" name="templateFile" id="templateFile" type="file" accept=".zip" onchange="upload(this)" required></div>\
-      <div class="modal-footer">\
-        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>\
-        <a class="btn btn-primary" href="#" onclick="update_template(\'' + url + '\',\'' + nfvoType + '\')">Update</a>\
-      </div>\
-    </div>\
-  </div>';
-}
-
-
-function update_template(url, nfvoType) {
-    var name = document.getElementById("update_template_id").value;
-    if (file && name) {
-        var form = new FormData();
-        form.append("nfvoType", nfvoType);
-        form.append("templateType", "NRM");
-        form.append("templateFile", file);
-        axios.put(url + name + '/', form)
-            .then((response) => {
-                alert("Template update success！");
-                location.reload();
-            })
-            .catch((error) => {
-                alert("NRM Template model has some error.");
-            });
-    } else {
-        alert("Please enter Template ID and Template File");
-    }
-}
-
 
 function get_plugin_list(url) {
     axios.get(url + 'plugin/management/').then((response) => {
