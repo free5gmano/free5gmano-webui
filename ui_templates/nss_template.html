@@ -1,5 +1,5 @@
 {% extends 'bar.html' %}
-{% block title %}NRM Template{% endblock %}
+{% block title %}NSS Template{% endblock %}
 {% block js %}
     <link href="/static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/tree.css">
@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Network Resource Model Template</h1>
+            <h1 class="h3 mb-0 text-gray-800">Network Slice Subnet Template</h1>
             <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
                     data-target="#create_nss_template"> Create NSS Template
             </button>
@@ -29,17 +29,17 @@
                             <th>Id</th>
                             <th>Description</th>
                             <th>NFVO</th>
-                            <th>VNF list</th>
+                            <th>Template list</th>
                             <th>Delete Template</th>
                         </tr>
                         </thead>
-                        <tbody id="nrm_table"></tbody>
+                        <tbody id="nss_table"></tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- create_nrm_template-->
+        <!-- create_nss_template-->
         <div class="modal fade" id="create_nss_template" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
