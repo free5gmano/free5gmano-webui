@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^VNF_Template/$', VNF_Template),
     url(r'^NSD_Template/$', NSD_Template),
     url(r'^NRM_Template/$', NRM_Template),
+    url(r'^NSS_Template/$', NSS_Template),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
