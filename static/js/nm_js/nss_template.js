@@ -53,7 +53,7 @@ function delete_template(url, name) {
     var yes = confirm("Sure to delete NSS Template ?");
     if (yes) {
         axios.delete(url + name + '/').then((response) => {
-            alert("NRM Template Delete Success");
+            alert("NSS Template Delete Success");
             location.reload();
         })
             .catch((error) => {
