@@ -1,10 +1,12 @@
 function nss_instance_list(url){
   axios.get(url+'ObjectManagement/NetworkSliceSubnet/*/?scope=[%27BASE_NTH_LEVEL%27,1]').then((response) => {
     var response = response.data.attributeListOut;
+    var nssi_status;
     // console.log(response);
     for (var i =0; i< response.length; i++) {
       // console.log(response[i])
       if (response[i].nsInfo) {
+        nssi_status = 'running';
         document.getElementById("nssitable").innerHTML += '\
           <tr>\
             <td>\
@@ -28,9 +30,9 @@ function nss_instance_list(url){
             <td>'+response[i].nsInfo.nsInstanceName+'</td>\
             <td>'+response[i].administrativeState+'</td>\
             <td>'+response[i].operationalState+'</td>\
-            <td align="center"><a href="/nssi_topology?id='+response[i].nssiId+'"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
+            <td align="center"><a href="/nssi_topology?id='+response[i].nssiId+'&status=show"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
             <td align="center"><a href="#" onclick="deallocate_nssi(\''+url+'ObjectManagement/NSS/SliceProfiles/\',\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
-            <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
+            <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\',\''+nssi_status+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
           strdata = response[i].nsInfo.vnfInstance;
           strdata_handle = strdata.replace(/'/g, '"').replace(/:[ ]*False/g, ":false").replace(/:[ ]*True/g, ":true").replace(/:[ ]*None/g, ":null");
@@ -42,7 +44,7 @@ function nss_instance_list(url){
           vnf_ip_handle = result[j].instantiatedVnfInfo.extCpInfo;
           for (var k = 0; k < vnf_ip_handle.length; k++) {
             if (vnf_ip_handle[k].cpdId == "CP2") {
-              console.log(vnf_ip_handle[k].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses);
+              // console.log(vnf_ip_handle[k].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses);
               vnf_ip = vnf_ip_handle[k].cpProtocolInfo[0].ipOverEthernet.ipAddresses[0].addresses;
             }
           }
@@ -56,6 +58,7 @@ function nss_instance_list(url){
         }
       }
       else{
+        nssi_status = 'deallocated';
         document.getElementById("nssitable").innerHTML += '\
           <tr>\
             <td>\
@@ -81,7 +84,7 @@ function nss_instance_list(url){
             <td>'+response[i].operationalState+'</td>\
             <td align="center"><a href="#"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
             <td align="center"><a href="#" onclick="deallocate_nssi(\''+url+'ObjectManagement/NSS/SliceProfiles/\',\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
-            <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
+            <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\',\''+nssi_status+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         document.getElementById(response[i].nssiId).innerHTML += '<tr><td colspan="4" style="text-align: center">No VNF Information !!</td></tr>';
       }
@@ -105,29 +108,35 @@ function nss_instance_list(url){
 function deallocate_nssi(url, nssiID){
   var yes = confirm("Sure to deallocate NSSI ?");
   if (yes) {
-    axios.delete(url+nssiID+'/')
-    .then((response) => {
-      alert("NSSI Deallocate Success");
-      location.reload();
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("NSSI in not allocated");
-    });
+    window.location.href = 'http://10.20.1.111/nssi_topology/?id='+nssiID+'&status=deallocate';
+    // axios.delete(url+nssiID+'/')
+    // .then((response) => {
+    //   alert("NSSI Deallocate Success");
+    //   location.reload();
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    //   alert("NSSI in not allocated");
+    // });
   }
 }
 
 
-function delete_nssi(url){
+function delete_nssi(url, nssi_status){
   var yes = confirm("Sure to delete NSSI ?");
   if (yes) {
-    axios.delete(url).then((response) => {
-      alert("NSSI Delete Success");
-      location.reload();
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("ERROR!!");
-    });
+    if (nssi_status == "deallocated") {
+      axios.delete(url).then((response) => {
+        alert("NSSI Delete Success");
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("ERROR!!");
+      });
+    }
+    else{
+      alert("NSSI is not deallocated !!");
+    }
   }
 }

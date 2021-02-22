@@ -35,6 +35,7 @@ def dashboard(request):
 def nssi_topology(request):
     return render(request, 'nssi_topology.html', {
         'id': str(request.GET['id']),
+        'status': str(request.GET['status']),
         'graph_view_active': str('active'),
         'generic_template_link_status': str('nav-link collapsed'),
         'generic_template_expanded': str('false'),

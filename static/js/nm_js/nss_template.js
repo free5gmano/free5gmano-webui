@@ -2,6 +2,7 @@ function nss_template_list(url) {
     axios.get(url + 'ObjectManagement/SliceTemplate/').then((response) => {
         var response = response.data;
         for (var i = 0; i < response.length; i++) {
+            // console.log(response[i]);
             templateId = response[i].templateId;
             document.getElementById("nss_table").innerHTML += '\
           <tr>\
@@ -9,6 +10,7 @@ function nss_template_list(url) {
             <td>' + response[i].description + '</td>\
             <td>' + response[i].nfvoType + '</td>\
             <td align="center"><a href="#" class="btn btn-info btn-circle" data-toggle="modal" data-target="#generic_templates_Modal' + templateId + '"><i class="fas fa-file-alt text-white"></i></a></td>\
+            <td align="center"><a href="#" class="btn btn-success btn-circle" onclick="allocate_nssi(\'' + templateId + '\')"><i class="fas fa-fw fa-cog"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_template(\'' + url + 'ObjectManagement/SliceTemplate/\',\'' + templateId + '\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
 
@@ -24,7 +26,7 @@ function nss_template_list(url) {
               </div>\
               <div class="modal-body">\
                 <label for="update_template_id">NSS Template ID :</label><input type="text" class="form-control bg-light border-0 small" name="update_template_id" id="update_template_id_' + templateId + '" required readonly value="' + templateId + '">\
-                <label>Template List :\
+                <label>Template ID List :\
                   <table id="generic_templates_list_' + templateId + '">\
                     <tr></tr>\
                   </table>\
@@ -37,9 +39,9 @@ function nss_template_list(url) {
           </div>\
         </div>';
             for (var j = 0; j < response[i].genericTemplates.length; j++) {
-                genericTemplatesNfvoType = response[i].genericTemplates[j].nfvoType;
+                genericTemplatesID = response[i].genericTemplates[j].templateId;
                 templateType = response[i].genericTemplates[j].templateType + ' : ';
-                document.getElementById("generic_templates_list_" + templateId).innerHTML += '<td>' + templateType + genericTemplatesNfvoType + '</td>';
+                document.getElementById("generic_templates_list_" + templateId).innerHTML += '<td>' + templateType + genericTemplatesID + '</td>';
             }
         }
         $(document).ready(function () {
@@ -49,10 +51,10 @@ function nss_template_list(url) {
 }
 
 
-function delete_template(url, name) {
+function delete_template(url, nsstID) {
     var yes = confirm("Sure to delete NSS Template ?");
     if (yes) {
-        axios.delete(url + name + '/').then((response) => {
+        axios.delete(url + nsstID + '/').then((response) => {
             alert("NSS Template Delete Success");
             location.reload();
         })
@@ -134,4 +136,23 @@ function get_generic_template_list(url) {
             }
         }
     });
+}
+
+
+function allocate_nssi(nsstID) {
+    window.location.href = 'http://10.20.1.111/nssi_topology/?id='+nsstID+'&status=allocate';
+    // const json = JSON.stringify({attributeListIn:{nsstid:nsstID,using_existed:""}});
+    // axios.post(url, json, {
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    //     .then((response) => {
+    //     alert("NSS Template Allocate Success");
+    //     window.location.href = 'http://10.20.1.111/NSS_Instance/';
+    //     })
+    //     .catch((error) => {
+    //         console.log(error);
+    //         alert("ERROR!!");
+    //     });
 }
