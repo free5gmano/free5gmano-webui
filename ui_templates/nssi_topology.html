@@ -65,9 +65,6 @@
     if ('{{ status }}' == 'deallocate') {
       show_deallocate_nssi_topology('{{ id }}', '{{NM_URL}}');
     }
-    else if('{{ status }}' == 'allocate'){
-      allocate_nssi('{{ id }}', '{{NM_URL}}');
-    }
     else{
       show_nssi();
     }
