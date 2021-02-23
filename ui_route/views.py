@@ -29,3 +29,15 @@ def nssi_topology(request):
         'nssi_view_show': str('show'),
         'NM_URL': settings.NM_URL,
     })
+
+
+def NSS_Instance(request):
+    return render(request, 'nss_instance.html', {
+        'list_view_active': str('active'),
+        'generic_template_link_status': str('nav-link collapsed'),
+        'generic_template_expanded': str('false'),
+        'nssi_view_link_status': str('nav-link collapsed'),
+        'nssi_view_expanded': str('true'),
+        'nssi_view_show': str('show'),
+        'NM_URL': settings.NM_URL,
+    })
