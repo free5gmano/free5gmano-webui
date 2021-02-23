@@ -43,7 +43,7 @@
           <span>Dashboard</span></a>
       </li>
       <li class="nav-item {{ plugin_active }}">
-        <a class="nav-link" href="/plugin">
+        <a class="nav-link" href="#">
           <span>Service Mapping Plugin</span></a>
       </li>
       <li class="nav-item">
@@ -52,27 +52,19 @@
         </a>
         <div id="collapseOne" class="collapse {{ generic_template_show }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item {{ vnf_template_active }}" href="/VNF_Template">
+        <a class="collapse-item {{ vnf_template_active }}" href="#">
           <span>VNF Template</span></a>
-        <a class="collapse-item {{ nsd_template_active }}" href="/NSD_Template">
+        <a class="collapse-item {{ nsd_template_active }}" href="#">
           <span>NSD Template</span></a>
-        <a class="collapse-item {{ nrm_template_active }}" href="/NRM_Template">
+        <a class="collapse-item {{ nrm_template_active }}" href="#">
           <span>NRM Template</span></a>
           </div>
         </div>
       </li>
       <li class="nav-item {{ nss_template_active }}">
-        <a class="nav-link" href="/NSS_Template">
+        <a class="nav-link" href=#">
           <span>NSS template</span></a>
       </li>
-<!--       <li class="nav-item {{ NSS_Instance_active }}">
-        <a class="nav-link" href="/NSS_Instance">
-          <span>NSS Instance</span></a>
-      </li> -->
-<!--       <li class="nav-item {{ nssi_topology_active }}">
-        <a class="nav-link" href="/nssi_topology?id=NSSI">
-          <span>NSSI Topology</span></a>
-      </li> -->
       <li class="nav-item">
         <a class="{{ nssi_view_link_status }}" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="{{ nssi_view_expanded }}" aria-controls="collapseTwo">
           <span>NSSI View</span>
@@ -81,16 +73,11 @@
           <div class="bg-white py-2 collapse-inner rounded">
         <a class="collapse-item {{ graph_view_active }}" href="/nssi_topology?id=NSSI&status=show">
           <span>Graph View</span></a>
-        <a class="collapse-item {{ list_view_active }}" href="/NSS_Instance">
+        <a class="collapse-item {{ list_view_active }}" href="#">
           <span>List View</span></a>
           </div>
         </div>
       </li>
-<!--       <li class="nav-item">
-        <a class="nav-link" href="/test_topology" target="_blank">
-          <span>test topology</span></a>
-      </li>
- -->
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -141,7 +128,6 @@
 
   <!-- Bootstrap core JavaScript-->
   <script src="/static/vendor/jquery/jquery.min.js"></script>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
