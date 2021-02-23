@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^dashboard/$', dashboard),
     url(r'^nssi_topology/$', nssi_topology),
     url(r'^NSS_Instance/$', NSS_Instance),
+    url(r'^service_mapping_plugin/$', service_mapping_plugin),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

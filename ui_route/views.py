@@ -41,3 +41,14 @@ def NSS_Instance(request):
         'nssi_view_show': str('show'),
         'NM_URL': settings.NM_URL,
     })
+
+
+def service_mapping_plugin(request):
+    return render(request, 'service_mapping_plugin.html', {
+        'plugin_active': str('active'),
+        'generic_template_link_status': str('nav-link collapsed'),
+        'generic_template_expanded': str('false'),
+        'nssi_view_link_status': str('nav-link collapsed'),
+        'nssi_view_expanded': str('false'),
+        'NM_URL': settings.NM_URL,
+    })
