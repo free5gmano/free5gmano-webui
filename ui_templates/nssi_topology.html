@@ -1,0 +1,80 @@
+{% extends 'bar.html' %}
+{% block title %}Network Slice Subnet Instance Graph{% endblock%}
+
+{% block js %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+<!-- Page Heading -->
+{% if id == 'NSSI' %}<h1 class="h3 mb-4 text-gray-800">Network Slice Subnet Instance Graph</h1>
+{% else %}<h1 class="h3 mb-4 text-gray-800">{{ id }} Graph</h1>
+{% endif %}
+
+<div class="row">
+  <!-- Graph Chart -->
+  <div class="col-xl-8 col-lg-7">
+    <div class="card shadow mb-4" style="height: 170%">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Graph view</h6>
+      </div>
+      <div class="card-body">
+        <div class="chart-area">
+          <div id="container" style="height: 200%"></div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- view Chart -->
+  <div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Information</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <div class="chart-pie pt-4">
+          <div id="NS-view-Chart"></div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="/static/js/nm_js/nssi_topology.js"></script>
+<script src="/static/js/nm_js/topology.js"></script>
+<script type="text/javascript">
+  const url = '{{NM_URL}}'+'ObjectManagement/NSS/topology/';
+  var topology_url;
+  if ('{{ id }}' == 'NSSI') {
+    topology_url = url;
+    show_nssi();
+  }
+  else{
+    topology_url = url+'{{ id }}';
+    if ('{{ status }}' == 'deallocate') {
+      show_deallocate_nssi_topology('{{ id }}', '{{NM_URL}}');
+    }
+    else if('{{ status }}' == 'allocate'){
+      allocate_nssi('{{ id }}', '{{NM_URL}}');
+    }
+    else{
+      show_nssi();
+    }
+  }
+
+</script>
+{% endblock %}
+
+{% block foot_js %}
+{% endblock %}
