@@ -6,6 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url(r'^dashboard/$', dashboard),
     url(r'^nssi_topology/$', nssi_topology),
+    url(r'^NSS_Instance/$', NSS_Instance),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
