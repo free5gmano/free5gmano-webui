@@ -102,28 +102,28 @@ function nss_instance_list(url){
 
 
 function deallocate_nssi(url, nssiID){
-  // var yes = confirm("Sure to deallocate NSSI ?");
-  // if (yes) {
-  //   window.location.href = 'http://10.20.1.111/nssi_topology/?id='+nssiID+'&status=deallocate';
-  // }
+  var yes = confirm("Sure to deallocate NSSI ?");
+  if (yes) {
+    window.location.href = 'http://10.20.1.111/nssi_topology/?id='+nssiID+'&status=deallocate';
+  }
 }
 
 
 function delete_nssi(url, nssi_status){
-  // var yes = confirm("Sure to delete NSSI ?");
-  // if (yes) {
-  //   if (nssi_status == "deallocated") {
-  //     axios.delete(url).then((response) => {
-  //       alert("NSSI Delete Success");
-  //       location.reload();
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert("ERROR!!");
-  //     });
-  //   }
-  //   else{
-  //     alert("NSSI is not deallocated !!");
-  //   }
-  // }
+  var yes = confirm("Sure to delete NSSI ?");
+  if (yes) {
+    if (nssi_status == "deallocated") {
+      axios.delete(url).then((response) => {
+        alert("NSSI Delete Success");
+        location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("ERROR!!");
+      });
+    }
+    else{
+      alert("NSSI is not deallocated !!");
+    }
+  }
 }
