@@ -64,3 +64,15 @@ def VNF_Template(request):
         'nssi_view_expanded': str('false'),
         'NM_URL': settings.NM_URL,
     })
+
+
+def NSD_Template(request):
+    return render(request, 'nsd_template.html', {
+        'nsd_template_active': str('active'),
+        'generic_template_link_status': str('nav-link'),
+        'generic_template_expanded': str('true'),
+        'generic_template_show': str('show'),
+        'nssi_view_link_status': str('nav-link collapsed'),
+        'nssi_view_expanded': str('false'),
+        'NM_URL': settings.NM_URL,
+    })
