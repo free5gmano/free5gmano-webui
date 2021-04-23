@@ -43,11 +43,23 @@ def NSS_Instance(request):
     })
 
 
-def service_mapping_plugin(request):
+def nfv_mano_plugin(request):
     return render(request, 'service_mapping_plugin.html', {
         'plugin_active': str('active'),
         'generic_template_link_status': str('nav-link collapsed'),
         'generic_template_expanded': str('false'),
+        'nssi_view_link_status': str('nav-link collapsed'),
+        'nssi_view_expanded': str('false'),
+        'NM_URL': settings.NM_URL,
+    })
+
+
+def VNF_Template(request):
+    return render(request, 'vnf_template.html', {
+        'vnf_template_active': str('active'),
+        'generic_template_link_status': str('nav-link'),
+        'generic_template_expanded': str('true'),
+        'generic_template_show': str('show'),
         'nssi_view_link_status': str('nav-link collapsed'),
         'nssi_view_expanded': str('false'),
         'NM_URL': settings.NM_URL,
