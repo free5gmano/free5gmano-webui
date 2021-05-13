@@ -29,7 +29,7 @@ function nss_instance_list(url){
             <td>'+response[i].administrativeState+'</td>\
             <td>'+response[i].operationalState+'</td>\
             <td align="center"><a href="/nssi_topology?id='+response[i].nssiId+'&status=show"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
-            <td align="center"><a href="#" onclick="deallocate_nssi(\''+url+'ObjectManagement/NSS/SliceProfiles/\',\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
+            <td align="center"><a href="#" onclick="deallocate_nssi(\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\',\''+nssi_status+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
           strdata = response[i].nsInfo.vnfInstance;
@@ -79,7 +79,7 @@ function nss_instance_list(url){
             <td>'+response[i].administrativeState+'</td>\
             <td>'+response[i].operationalState+'</td>\
             <td align="center"><a href="#"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
-            <td align="center"><a href="#" onclick="deallocate_nssi(\''+url+'ObjectManagement/NSS/SliceProfiles/\',\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
+            <td align="center"><a href="#" onclick="deallocate_nssi(\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\',\''+nssi_status+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         document.getElementById(response[i].nssiId).innerHTML += '<tr><td colspan="4" style="text-align: center">No VNF Information !!</td></tr>';
@@ -101,10 +101,10 @@ function nss_instance_list(url){
 }
 
 
-function deallocate_nssi(url, nssiID){
+function deallocate_nssi(nssiID){
   var yes = confirm("Sure to deallocate NSSI ?");
   if (yes) {
-    window.location.href = 'http://10.20.1.111/nssi_topology/?id='+nssiID+'&status=deallocate';
+    window.location.href = '/nssi_topology/?id='+nssiID+'&status=deallocate';
   }
 }
 
