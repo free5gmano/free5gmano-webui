@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^nfv_mano_plugin/$', nfv_mano_plugin),
     url(r'^VNF_Template/$', VNF_Template),
     url(r'^NSD_Template/$', NSD_Template),
+    url(r'^NRM_Template/$', NRM_Template),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
