@@ -88,3 +88,14 @@ def NRM_Template(request):
         'nssi_view_expanded': str('false'),
         'NM_URL': settings.NM_URL,
     })
+
+
+def NSS_Template(request):
+    return render(request, 'nss_template.html', {
+        'nss_template_active': str('active'),
+        'generic_template_link_status': str('nav-link collapsed'),
+        'generic_template_expanded': str('false'),
+        'nssi_view_link_status': str('nav-link collapsed'),
+        'nssi_view_expanded': str('false'),
+        'NM_URL': settings.NM_URL,
+    })
