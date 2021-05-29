@@ -25,7 +25,15 @@ function vnf_template_list(url){
           strdata = response[i].content[j].topology_template;
           strdata_handle = strdata.replace(/'/g, '"').replace(/:[ ]*False/, ":false").replace(/:[ ]*True/, ":true");
           result = JSON.parse(strdata_handle);
-          vnf_descriptor_id = result.node_templates.VNF1.properties.descriptor_id;
+          if (!('VNF1' in result.node_templates)) {
+            for (vnf in result.node_templates){
+              if (result.node_templates[vnf].type == 'tosca.nodes.nfv.VDU.Tacker'){
+                vnf_descriptor_id = result.node_templates[vnf].properties.name;
+              }
+            }
+          }else{
+            vnf_descriptor_id = result.node_templates.VNF1.properties.descriptor_id;
+          }
           document.getElementById(response[i].templateId).innerHTML += '<li>'+vnf_descriptor_id+'</li>';
         }
       }

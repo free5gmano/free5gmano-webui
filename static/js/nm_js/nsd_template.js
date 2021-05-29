@@ -45,9 +45,20 @@ function nsd_template_list(url){
           strdata = response[i].content[j].topology_template;
           strdata_handle = strdata.replace(/'/g, '"');
           result = JSON.parse(strdata_handle);
-          vnfd = result.node_templates.NS1.properties.constituent_vnfd;
-          for (var k=0; k<vnfd.length; k++){
-            document.getElementById("vnf_id_list_"+nsd_id).innerHTML += '<td>'+vnfd[k].vnfd_id+'</td>';
+          if (!('NS1' in result.node_templates)) {
+            tacker_json = result.node_templates;
+            tacker_array = Object.values(tacker_json)
+            for (var k=0; k<tacker_array.length; k++){
+              tacker_array_type = tacker_array[k].type;
+              tacker_split_result = tacker_array_type.split(".");
+              vnfd = tacker_split_result[3];
+              document.getElementById("vnf_id_list_"+nsd_id).innerHTML += '<td>'+vnfd+'</td>';
+            }
+          }else{
+            vnfd = result.node_templates.NS1.properties.constituent_vnfd;
+            for (var k=0; k<vnfd.length; k++){
+              document.getElementById("vnf_id_list_"+nsd_id).innerHTML += '<td>'+vnfd[k].vnfd_id+'</td>';
+            }
           }
         }
       }
