@@ -58,7 +58,7 @@ function nss_instance_list(url){
             <td>'+response[i].administrativeState+'</td>\
             <td>'+response[i].operationalState+'</td>\
             <td align="center"><a href="/nssi_topology?id='+response[i].nssiId+'&status=show"><img src="/static/images/topology_icon.png" alt="" style="width: 32px; height: 32px"></a></td>\
-            <td align="center"><a href="#" onclick="deallocate_nssi(,\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
+            <td align="center"><a href="#" onclick="deallocate_nssi(\''+response[i].nssiId+'\')" class="btn btn-warning btn-circle"><i class="fas fa-exclamation-triangle"></i></a></td>\
             <td align="center"><a href="#" onclick="delete_nssi(\''+url+'ObjectManagement/NetworkSliceSubnet/'+response[i].nssiId+'/?scope=[%27BASE_NTH_LEVEL%27,0]\',\''+nssi_status+'\')" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a></td>\
           </tr>';
         }
