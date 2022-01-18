@@ -9,6 +9,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -54,22 +55,29 @@
 <script src="/static/js/nm_js/nssi_topology.js"></script>
 <script src="/static/js/nm_js/topology.js"></script>
 <script type="text/javascript">
+  // const url = 'http://127.0.0.1:30088/ObjectManagement/NSS/topology/';
   const url = '{{NM_URL}}'+'ObjectManagement/NSS/topology/';
-  var topology_url;
+  var topology_url, subscriptions_url, Kafka_URL;
+  var nssi_id = '{{ id }}';
   if ('{{ id }}' == 'NSSI') {
+    nm_url = '';
+    Kafka_URL = '';
     topology_url = url;
-    show_nssi();
+    show_nssi(nssi_id);
   }
   else{
+    nm_url = '{{NM_URL}}';
+    Kafka_URL = '{{ Kafka_URL }}';
     topology_url = url+'{{ id }}';
     if ('{{ status }}' == 'deallocate') {
       show_deallocate_nssi_topology('{{ id }}', '{{NM_URL}}');
+      // delete_vnf('{{ id }}', '{{NM_URL}}');
     }
     else if('{{ status }}' == 'allocate'){
       allocate_nssi('{{ id }}', '{{NM_URL}}');
     }
     else{
-      show_nssi();
+      show_nssi(nssi_id);
     }
   }
 
